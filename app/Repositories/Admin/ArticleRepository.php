@@ -5,6 +5,7 @@ namespace App\Repositories\Admin;
 use App\Models\Article;
 use App\Repositories\Interface\Admin\ArticleRepositoryInterface;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Response;
 
 class ArticleRepository implements ArticleRepositoryInterface
 {
@@ -28,13 +29,24 @@ class ArticleRepository implements ArticleRepositoryInterface
 
     public function find($id)
     {
+        // Pastikan ID valid sebelum mencari artikel
+        if (empty($id) || !is_numeric($id)) {
+            return response()->json(['error' => 'ID tidak valid'], Response::HTTP_BAD_REQUEST);
+        }
+
         return response()->json(Article::findOrFail($id));
     }
 
     public function update(array $data, $id)
     {
+        // Pastikan ID valid sebelum melanjutkan
+        if (empty($id) || !is_numeric($id)) {
+            return response()->json(['error' => 'ID tidak valid'], Response::HTTP_BAD_REQUEST);
+        }
+
         $article = Article::findOrFail($id);
 
+        // Handle file updates (header_image dan article_body_image)
         if (request()->hasFile('header_image')) {
             if ($article->header_image && Storage::exists('public/'.$article->header_image)) {
                 Storage::delete('public/'.$article->header_image);
@@ -59,8 +71,14 @@ class ArticleRepository implements ArticleRepositoryInterface
 
     public function delete($id)
     {
+        // Pastikan ID valid sebelum menghapus artikel
+        if (empty($id) || !is_numeric($id)) {
+            return response()->json(['error' => 'ID tidak valid'], Response::HTTP_BAD_REQUEST);
+        }
+
         $article = Article::findOrFail($id);
 
+        // Hapus file terkait
         if ($article->header_image) {
             Storage::delete('public/'.$article->header_image);
         }
@@ -74,5 +92,17 @@ class ArticleRepository implements ArticleRepositoryInterface
         return response()->json([
             'message' => 'Artikel berhasil dihapus.',
         ]);
+    }
+
+    // Fungsi untuk menghitung artikel berdasarkan slug dan id
+    public function countArticlesBySlug($slug, $id = null)
+    {
+        // Pastikan $id valid
+        if (empty($id) || !is_numeric($id)) {
+            return response()->json(['error' => 'ID tidak valid'], Response::HTTP_BAD_REQUEST);
+        }
+
+        // Query hanya akan dijalankan jika $id valid
+        return response()->json(Article::where('slug', $slug)->where('id', '<>', $id)->count());
     }
 }
