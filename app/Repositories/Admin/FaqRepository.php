@@ -8,9 +8,11 @@ use App\Repositories\Interface\Admin\FaqRepositoryInterface;
 class FaqRepository implements FaqRepositoryInterface
 {
     public function all()
-    {
-        return response()->json(Faq::latest()->paginate(10)); // Ubah 10 ke jumlah item per halaman sesuai kebutuhan
-    }
+{
+    $perPage = request()->get('per_page', 10); // Default 10
+    return response()->json(Faq::latest()->paginate($perPage));
+}
+
 
     public function create(array $data)
     {
