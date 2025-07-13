@@ -9,7 +9,7 @@ class FaqRepository implements FaqRepositoryInterface
 {
     public function all()
     {
-        return response()->json(Faq::latest()->get());
+        return response()->json(Faq::latest()->paginate(10)); // Ubah 10 ke jumlah item per halaman sesuai kebutuhan
     }
 
     public function create(array $data)
