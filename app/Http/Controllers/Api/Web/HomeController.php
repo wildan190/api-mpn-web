@@ -9,17 +9,11 @@ use App\Models\Mitra;
 use App\Models\ProductService;
 use App\Models\Social;
 use App\Models\WebSettings;
-use Illuminate\Support\Facades\Request;
-use Awssat\Visits\facades\Visits;
-
 
 class HomeController extends Controller
 {
     public function index()
     {
-        // Tambah kunjungan ke homepage
-        visits('homepage')->increment();
-
         return response()->json([
             'web_settings' => WebSettings::first(),
             'social_links' => Social::first(),
@@ -27,7 +21,6 @@ class HomeController extends Controller
             'latest_articles' => Article::where('status', 'publish')->latest()->take(3)->get(),
             'products' => ProductService::where('status', 'released')->latest()->get(),
             'faqs' => Faq::all(),
-            'visits' => visits('homepage')->count(), // opsional
         ]);
     }
 }

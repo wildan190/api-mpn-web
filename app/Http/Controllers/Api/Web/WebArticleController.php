@@ -4,27 +4,23 @@ namespace App\Http\Controllers\Api\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\Visit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class WebArticleController extends Controller
 {
     public function index(Request $request)
     {
-        // Lacak kunjungan ke halaman daftar artikel
-        visits('article-list')->increment();
-
         $query = Article::where('status', 'publish');
 
         if ($search = $request->input('search')) {
-            $query->where('title', 'like', "%{$search}%");
+            $query->where('title', 'like', '%' . $search . '%');
         }
 
         $articles = $query->latest()->paginate(6);
 
-        return response()->json([
-            'visits'   => visits('article-list')->count(), // opsional
-            'data'     => $articles,
-        ]);
+        return response()->json($articles);
     }
 
     public function show($slug)
@@ -33,13 +29,24 @@ class WebArticleController extends Controller
             ->where('status', 'publish')
             ->firstOrFail();
 
-        // Lacak kunjungan ke artikel tertentu
-        visits($article)->increment();
+        // Ambil IP pengunjung
+        $ip = FacadesRequest::ip();
+
+        // Cek apakah sudah pernah mengunjungi dalam 1 jam terakhir
+        $alreadyVisited = $article->visits()
+            ->where('ip_address', $ip)
+            ->where('created_at', '>=', now()->subHour())
+            ->exists();
+
+        if (! $alreadyVisited) {
+            $article->visits()->create([
+                'ip_address' => $ip,
+            ]);
+        }
 
         return response()->json([
-            'article'          => $article,
-            'total_visits'     => visits($article)->count(),      // total sejak awal
-            'today_visits'     => visits($article)->period('day')->count(),   // hari ini (opsional)
+            'article' => $article,
+            'visits' => $article->visits()->count(),
         ]);
     }
 }

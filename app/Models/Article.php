@@ -1,16 +1,11 @@
 <?php
 
 namespace App\Models;
+use App\Models\Visit;
 
 use Illuminate\Database\Eloquent\Model;
-use Awssat\Visits\Visits;
-
-
 class Article extends Model
 {
-
-    use Visits;
-
     protected $fillable = [
         'title',
         'header_image',
@@ -24,4 +19,14 @@ class Article extends Model
         'seo_description',
         'keywords',
     ];
+
+    public function visits()
+    {
+        return $this->morphMany(Visit::class, 'visitable');
+    }
+
+    public function visitCount()
+    {
+        return $this->visits()->count();
+    }
 }
