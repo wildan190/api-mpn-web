@@ -18,7 +18,7 @@ class ArticleRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'header_image' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048',
-            'slug' => 'required|string|max:255|unique:articles,slug,' . ($id ?: 'NULL'), // Menangani update dengan ID
+            'slug' => 'required|string|max:255|unique:articles,slug,'.($id ?: 'NULL'), // Menangani update dengan ID
             'date' => 'required|date',
             'article_body_image' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048',
             'alt_body_image' => 'nullable|string|max:255',

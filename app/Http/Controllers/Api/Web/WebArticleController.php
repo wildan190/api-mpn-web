@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
-use App\Models\Visit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 
@@ -15,7 +14,7 @@ class WebArticleController extends Controller
         $query = Article::where('status', 'publish');
 
         if ($search = $request->input('search')) {
-            $query->where('title', 'like', '%' . $search . '%');
+            $query->where('title', 'like', '%'.$search.'%');
         }
 
         $articles = $query->latest()->paginate(6);

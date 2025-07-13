@@ -4,8 +4,8 @@ namespace App\Repositories\Admin;
 
 use App\Models\Article;
 use App\Repositories\Interface\Admin\ArticleRepositoryInterface;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleRepository implements ArticleRepositoryInterface
 {
@@ -30,7 +30,7 @@ class ArticleRepository implements ArticleRepositoryInterface
     public function find($id)
     {
         // Pastikan ID valid sebelum mencari artikel
-        if (empty($id) || !is_numeric($id)) {
+        if (empty($id) || ! is_numeric($id)) {
             return response()->json(['error' => 'ID tidak valid'], Response::HTTP_BAD_REQUEST);
         }
 
@@ -40,7 +40,7 @@ class ArticleRepository implements ArticleRepositoryInterface
     public function update(array $data, $id)
     {
         // Pastikan ID valid sebelum melanjutkan
-        if (empty($id) || !is_numeric($id)) {
+        if (empty($id) || ! is_numeric($id)) {
             return response()->json(['error' => 'ID tidak valid'], Response::HTTP_BAD_REQUEST);
         }
 
@@ -72,7 +72,7 @@ class ArticleRepository implements ArticleRepositoryInterface
     public function delete($id)
     {
         // Pastikan ID valid sebelum menghapus artikel
-        if (empty($id) || !is_numeric($id)) {
+        if (empty($id) || ! is_numeric($id)) {
             return response()->json(['error' => 'ID tidak valid'], Response::HTTP_BAD_REQUEST);
         }
 
@@ -98,7 +98,7 @@ class ArticleRepository implements ArticleRepositoryInterface
     public function countArticlesBySlug($slug, $id = null)
     {
         // Pastikan $id valid
-        if (empty($id) || !is_numeric($id)) {
+        if (empty($id) || ! is_numeric($id)) {
             return response()->json(['error' => 'ID tidak valid'], Response::HTTP_BAD_REQUEST);
         }
 

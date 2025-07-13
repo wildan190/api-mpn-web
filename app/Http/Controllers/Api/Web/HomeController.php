@@ -6,12 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Faq;
 use App\Models\Mitra;
+use App\Models\Page;
 use App\Models\ProductService;
 use App\Models\Social;
-use App\Models\Visit;
 use App\Models\WebSettings;
 use Illuminate\Support\Facades\Request;
-use App\Models\Page;
 
 class HomeController extends Controller
 {

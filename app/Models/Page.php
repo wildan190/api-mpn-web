@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Page extends Model
 {
     protected $fillable = ['slug'];
+
     public $timestamps = false;
 
     public function visits()

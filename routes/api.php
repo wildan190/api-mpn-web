@@ -88,11 +88,11 @@ Route::prefix('web')->group(function () {
 });
 
 Route::prefix('web')->group(function () {
-    Route::get('/articles', [WebArticleController::class, 'index']); 
-    Route::get('/articles/{slug}', [WebArticleController::class, 'show']); 
+    Route::get('/articles', [WebArticleController::class, 'index']);
+    Route::get('/articles/{slug}', [WebArticleController::class, 'show']);
 });
 
 Route::prefix('web')->group(function () {
-    Route::get('/products', [WebProductController::class, 'index']); 
+    Route::get('/products', [WebProductController::class, 'index']);
     Route::get('/products/{id}', [WebProductController::class, 'show']);
 });

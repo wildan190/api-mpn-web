@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Models;
-use App\Models\Visit;
 
 use Illuminate\Database\Eloquent\Model;
+
 class Article extends Model
 {
     protected $fillable = [
