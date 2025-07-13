@@ -40,7 +40,7 @@ class HomeController extends Controller
             'mitra' => Mitra::latest()->get(),
             'latest_articles' => Article::where('status', 'publish')->latest()->take(3)->get(),
             'products' => ProductService::where('status', 'released')->latest()->get(),
-            'faqs' => Faq::all(),
+            'faqs' => Faq::latest()->get(),
             'homepage_visits' => $page->visits()->count(),
         ]);
     }
