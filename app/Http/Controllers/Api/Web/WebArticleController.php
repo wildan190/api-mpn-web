@@ -10,15 +10,21 @@ class WebArticleController extends Controller
 {
     public function index(Request $request)
     {
+        // Lacak kunjungan ke halaman daftar artikel
+        visits('article-list')->increment();
+
         $query = Article::where('status', 'publish');
 
         if ($search = $request->input('search')) {
-            $query->where('title', 'like', '%'.$search.'%');
+            $query->where('title', 'like', "%{$search}%");
         }
 
         $articles = $query->latest()->paginate(6);
 
-        return response()->json($articles);
+        return response()->json([
+            'visits'   => visits('article-list')->count(), // opsional
+            'data'     => $articles,
+        ]);
     }
 
     public function show($slug)
@@ -27,6 +33,13 @@ class WebArticleController extends Controller
             ->where('status', 'publish')
             ->firstOrFail();
 
-        return response()->json($article);
+        // Lacak kunjungan ke artikel tertentu
+        visits($article)->increment();
+
+        return response()->json([
+            'article'          => $article,
+            'total_visits'     => visits($article)->count(),      // total sejak awal
+            'today_visits'     => visits($article)->period('day')->count(),   // hari ini (opsional)
+        ]);
     }
 }

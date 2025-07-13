@@ -20,7 +20,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('/web/home', [HomeController::class, 'index']);
+Route::middleware('throttle:20,1')->get('/web/home', [HomeController::class, 'index']);
 
 Route::prefix('auth')->name('auth.')->group(function () {
     Route::post('/register', [AuthController::class, 'register'])->name('register');
@@ -88,11 +88,11 @@ Route::prefix('web')->group(function () {
 });
 
 Route::prefix('web')->group(function () {
-    Route::get('/articles', [WebArticleController::class, 'index']);      // list artikel
-    Route::get('/articles/{slug}', [WebArticleController::class, 'show']); // detail artikel
+    Route::get('/articles', [WebArticleController::class, 'index']); 
+    Route::get('/articles/{slug}', [WebArticleController::class, 'show']); 
 });
 
 Route::prefix('web')->group(function () {
-    Route::get('/products', [WebProductController::class, 'index']);     // list product with pagination & filter
-    Route::get('/products/{id}', [WebProductController::class, 'show']); // detail product
+    Route::get('/products', [WebProductController::class, 'index']); 
+    Route::get('/products/{id}', [WebProductController::class, 'show']);
 });

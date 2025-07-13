@@ -3,9 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Awssat\Visits\Visits;
+
 
 class Article extends Model
 {
+
+    use Visits;
+
     protected $fillable = [
         'title',
         'header_image',
