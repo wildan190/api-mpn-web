@@ -9,6 +9,8 @@ use App\Repositories\Admin\ProductServiceRepository;
 use App\Repositories\Admin\ProfileRepository;
 use App\Repositories\Admin\SocialRepository;
 use App\Repositories\Admin\WebSettingsRepository;
+use App\Repositories\Interface\Admin\CategoryRepositoryInterface;
+use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Auth\AuthRepository;
 use App\Repositories\Interface\Admin\ArticleRepositoryInterface;
 use App\Repositories\Interface\Admin\FaqRepositoryInterface;
@@ -38,6 +40,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ProductServiceRepositoryInterface::class, ProductServiceRepository::class);
         $this->app->bind(FaqRepositoryInterface::class, FaqRepository::class);
         $this->app->bind(FeedbackRepositoryInterface::class, FeedbackRepository::class);
+        $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
     }
 
     /**
