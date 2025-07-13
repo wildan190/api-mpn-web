@@ -11,7 +11,7 @@ class ArticleRepository implements ArticleRepositoryInterface
 {
     public function all()
     {
-        return response()->json(Article::latest()->get());
+        return response()->json(Article::with('category')->latest()->get());
     }
 
     public function create(array $data)
