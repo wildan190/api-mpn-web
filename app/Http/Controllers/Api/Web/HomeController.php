@@ -10,6 +10,8 @@ use App\Models\ProductService;
 use App\Models\Social;
 use App\Models\WebSettings;
 use Illuminate\Support\Facades\Request;
+use Visits;
+
 
 class HomeController extends Controller
 {

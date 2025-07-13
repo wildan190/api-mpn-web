@@ -11,6 +11,7 @@ return [
     |
     */
     'engine' => \Awssat\Visits\DataEngines\RedisEngine::class,
+    'driver' => 'redis',
     'connection' => 'laravel-visits',
 
 
