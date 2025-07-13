@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    protected $fillable = ['title', 'header_image', 'slug', 'date', 'article_body_image', 'alt_body_image', 'article_body', 'status', 'seo_title', 'seo_description', 'keywords', 'category_id',];
+    protected $fillable = ['title', 'header_image', 'slug', 'date', 'article_body_image', 'alt_body_image', 'article_body', 'status', 'seo_title', 'seo_description', 'keywords', 'category_id'];
 
     public function visits()
     {

@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Http\Controllers\Api\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Admin\PermissionRequest;
+use App\Repositories\Interface\Admin\PermissionRepositoryInterface;
+
+class PermissionController extends Controller
+{
+    public function __construct(private PermissionRepositoryInterface $repo) {}
+
+    public function index()
+    {
+        return $this->repo->all();
+    }
+
+    public function store(PermissionRequest $req)
+    {
+        return $this->repo->create($req->validated());
+    }
+
+    public function show($id)
+    {
+        return $this->repo->find($id);
+    }
+
+    public function update(PermissionRequest $req, $id)
+    {
+        return $this->repo->update($req->validated(), $id);
+    }
+
+    public function destroy($id)
+    {
+        return $this->repo->delete($id);
+    }
+}

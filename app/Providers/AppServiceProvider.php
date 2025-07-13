@@ -3,20 +3,24 @@
 namespace App\Providers;
 
 use App\Repositories\Admin\ArticleRepository;
+use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\FaqRepository;
 use App\Repositories\Admin\MitraRepository;
+use App\Repositories\Admin\PermissionRepository;
 use App\Repositories\Admin\ProductServiceRepository;
 use App\Repositories\Admin\ProfileRepository;
+use App\Repositories\Admin\RoleRepository;
 use App\Repositories\Admin\SocialRepository;
 use App\Repositories\Admin\WebSettingsRepository;
-use App\Repositories\Interface\Admin\CategoryRepositoryInterface;
-use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Auth\AuthRepository;
 use App\Repositories\Interface\Admin\ArticleRepositoryInterface;
+use App\Repositories\Interface\Admin\CategoryRepositoryInterface;
 use App\Repositories\Interface\Admin\FaqRepositoryInterface;
 use App\Repositories\Interface\Admin\MitraRepositoryInterface;
+use App\Repositories\Interface\Admin\PermissionRepositoryInterface;
 use App\Repositories\Interface\Admin\ProductServiceRepositoryInterface;
 use App\Repositories\Interface\Admin\ProfileRepositoryInterface;
+use App\Repositories\Interface\Admin\RoleRepositoryInterface;
 use App\Repositories\Interface\Admin\SocialRepositoryInterface;
 use App\Repositories\Interface\Admin\WebSettingsRepositoryInterface;
 use App\Repositories\Interface\Auth\AuthRepositoryInterface;
@@ -41,6 +45,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(FaqRepositoryInterface::class, FaqRepository::class);
         $this->app->bind(FeedbackRepositoryInterface::class, FeedbackRepository::class);
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
+        $this->app->bind(RoleRepositoryInterface::class, RoleRepository::class);
+        $this->app->bind(PermissionRepositoryInterface::class, PermissionRepository::class);
     }
 
     /**

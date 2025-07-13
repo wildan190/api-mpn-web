@@ -18,7 +18,7 @@ class CategoryRepository implements CategoryRepositoryInterface
 
         return response()->json([
             'message' => 'Kategori berhasil ditambahkan.',
-            'data' => $category
+            'data' => $category,
         ]);
     }
 
@@ -34,7 +34,7 @@ class CategoryRepository implements CategoryRepositoryInterface
 
         return response()->json([
             'message' => 'Kategori berhasil diperbarui.',
-            'data' => $category
+            'data' => $category,
         ]);
     }
 
@@ -44,7 +44,7 @@ class CategoryRepository implements CategoryRepositoryInterface
         $category->delete();
 
         return response()->json([
-            'message' => 'Kategori berhasil dihapus.'
+            'message' => 'Kategori berhasil dihapus.',
         ]);
     }
 }

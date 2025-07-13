@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Interface\Admin;
 
-interface CategoryRepositoryInterface
+interface RoleRepositoryInterface
 {
     public function all();
 

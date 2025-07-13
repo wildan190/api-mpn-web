@@ -16,12 +16,14 @@ class FaqRepository implements FaqRepositoryInterface
     {
         if (array_is_list($data)) {
             $faqs = Faq::insert($data);
+
             return response()->json([
                 'message' => 'Beberapa FAQ berhasil ditambahkan.',
                 'data' => $data,
             ]);
         } else {
             $faq = Faq::create($data);
+
             return response()->json([
                 'message' => 'FAQ berhasil ditambahkan.',
                 'data' => $faq,

@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Social;
+use Illuminate\Database\Seeder;
 
 class SocialSeeder extends Seeder
 {
@@ -11,8 +11,8 @@ class SocialSeeder extends Seeder
     {
         Social::create([
             'instagram_link' => 'https://instagram.com/micropadmanusantara',
-            'facebook_link'  => 'https://facebook.com/micropadmanusantara',
-            'youtube_link'   => 'https://www.youtube.com/channel/UCj5ARSJgxftMlrwuLt1ZVVg',
+            'facebook_link' => 'https://facebook.com/micropadmanusantara',
+            'youtube_link' => 'https://www.youtube.com/channel/UCj5ARSJgxftMlrwuLt1ZVVg',
         ]);
     }
 }
