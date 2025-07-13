@@ -10,8 +10,6 @@ use App\Models\ProductService;
 use App\Models\Social;
 use App\Models\WebSettings;
 use Illuminate\Support\Facades\Request;
-use Visits;
-
 
 class HomeController extends Controller
 {
@@ -27,7 +25,7 @@ class HomeController extends Controller
             'latest_articles' => Article::where('status', 'publish')->latest()->take(3)->get(),
             'products' => ProductService::where('status', 'released')->latest()->get(),
             'faqs' => Faq::all(),
-            'visits' => visits('homepage')->count(), // opsional: kirim data kunjungan ke frontend
+            'visits' => visits('homepage')->count(), // opsional
         ]);
     }
 }
