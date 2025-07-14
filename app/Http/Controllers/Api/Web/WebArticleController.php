@@ -17,6 +17,10 @@ class WebArticleController extends Controller
             $query->where('title', 'like', '%'.$search.'%');
         }
 
+        if ($categoryId = $request->input('category_id')) {
+            $query->where('category_id', $categoryId);
+        }
+
         $articles = $query->latest()->paginate(6);
 
         return response()->json($articles);
