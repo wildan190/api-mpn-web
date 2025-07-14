@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Repositories\Admin\ArticleRepository;
+use App\Repositories\Admin\AssignUserRepository;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\FaqRepository;
 use App\Repositories\Admin\MitraRepository;
@@ -14,6 +15,7 @@ use App\Repositories\Admin\SocialRepository;
 use App\Repositories\Admin\WebSettingsRepository;
 use App\Repositories\Auth\AuthRepository;
 use App\Repositories\Interface\Admin\ArticleRepositoryInterface;
+use App\Repositories\Interface\Admin\AssignUserInterRepositoryInterface;
 use App\Repositories\Interface\Admin\CategoryRepositoryInterface;
 use App\Repositories\Interface\Admin\FaqRepositoryInterface;
 use App\Repositories\Interface\Admin\MitraRepositoryInterface;
@@ -47,6 +49,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
         $this->app->bind(RoleRepositoryInterface::class, RoleRepository::class);
         $this->app->bind(PermissionRepositoryInterface::class, PermissionRepository::class);
+        $this->app->bind(AssignUserInterRepositoryInterface::class, AssignUserRepository::class);
     }
 
     /**

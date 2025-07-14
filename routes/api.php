@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\ArticleController;
+use App\Http\Controllers\Api\Admin\AssignUserController;
 use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\DashboardController;
 use App\Http\Controllers\Api\Admin\FaqController;
@@ -108,6 +109,10 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
     Route::get('permissions/{id}', [PermissionController::class, 'show']);
     Route::put('permissions/{id}', [PermissionController::class, 'update']);
     Route::delete('permissions/{id}', [PermissionController::class, 'destroy']);
+});
+
+Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
+    Route::post('assign-user', [AssignUserController::class, 'assign']);
 });
 
 Route::prefix('web')->group(function () {
