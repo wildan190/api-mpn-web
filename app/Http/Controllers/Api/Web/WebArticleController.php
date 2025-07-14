@@ -11,10 +11,11 @@ class WebArticleController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Article::where('status', 'publish');
+        $query = Article::with('category') // Eager load category
+            ->where('status', 'publish');
 
         if ($search = $request->input('search')) {
-            $query->where('title', 'like', '%'.$search.'%');
+            $query->where('title', 'like', '%' . $search . '%');
         }
 
         if ($categoryId = $request->input('category_id')) {
@@ -28,7 +29,8 @@ class WebArticleController extends Controller
 
     public function show($slug)
     {
-        $article = Article::where('slug', $slug)
+        $article = Article::with('category') // Eager load category
+            ->where('slug', $slug)
             ->where('status', 'publish')
             ->firstOrFail();
 
