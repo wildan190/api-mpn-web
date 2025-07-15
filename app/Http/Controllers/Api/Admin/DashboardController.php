@@ -20,19 +20,21 @@ class DashboardController extends Controller
         $productCount = ProductService::count();
         $faqCount = Faq::count();
         $feedbackCount = Feedback::count();
-        $averageRating = Feedback::avg('rate');
+        $averageRating = Feedback::avg('rate') ?? 0;
 
-        // Total visit ke halaman homepage
-        $homeVisits = Visit::where('visitable_type', 'home')->count();
+        // Jumlah kunjungan ke homepage (disarankan simpan sebagai visitable_type = null & visitable_id = null)
+        $homeVisits = Visit::whereNull('visitable_type')
+                           ->whereNull('visitable_id')
+                           ->count();
 
-        // Kunjungan tiap artikel per slug
+        // Ambil kunjungan artikel
         $articleVisits = Visit::select('visitable_id', DB::raw('count(*) as total'))
             ->where('visitable_type', Article::class)
             ->groupBy('visitable_id')
             ->get()
             ->keyBy('visitable_id');
 
-        // Ambil slug berdasarkan ID
+        // Ambil slug semua artikel
         $articles = Article::select('id', 'slug')->get();
         $visitsBySlug = [];
 
@@ -41,14 +43,14 @@ class DashboardController extends Controller
         }
 
         return response()->json([
-            'total_articles' => $articleCount,
-            'total_mitras' => $mitraCount,
-            'total_products' => $productCount,
-            'total_faqs' => $faqCount,
-            'total_feedbacks' => $feedbackCount,
+            'total_articles'        => $articleCount,
+            'total_mitras'          => $mitraCount,
+            'total_products'        => $productCount,
+            'total_faqs'            => $faqCount,
+            'total_feedbacks'       => $feedbackCount,
             'average_feedback_rate' => round($averageRating, 2),
-            'home_visits' => $homeVisits,
-            'article_visits_by_slug' => $visitsBySlug,
+            'home_visits'           => $homeVisits,
+            'article_visits_by_slug'=> $visitsBySlug,
         ]);
     }
 }
